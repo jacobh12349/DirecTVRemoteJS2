@@ -8,7 +8,7 @@ const fetch = require('node-fetch');
 
 const DirecTVPauseIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+        return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest' || Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest')
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PauseDirecTVIntent';
     },
     handle(handlerInput) {
@@ -23,7 +23,6 @@ const DirecTVPauseIntentHandler = {
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
-        console.log(Alexa.getRequestType(handlerInput.requestEnvelope));
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
