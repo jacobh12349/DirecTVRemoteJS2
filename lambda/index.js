@@ -23,6 +23,7 @@ const DirecTVPauseIntentHandler = {
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
+        console.log(Alexa.getRequestType(handlerInput.requestEnvelope));
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
