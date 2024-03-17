@@ -15,7 +15,7 @@ const DirecTVPauseIntentHandler = {
         // fetch("http://192.168.0.34:8080/remote/processKey?key=pause", {method: 'POST'});
 
         return handlerInput.responseBuilder
-            .speak("Ok")
+            .speak('Ok')
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }
@@ -108,7 +108,6 @@ const SessionEndedRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
     },
     handle(handlerInput) {
-        if(null !== handlerInput.requestEnvelope.request.error) console.log(JSON.stringify(handlerInput.requestEnvelope.request.error));
         console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
         // Any cleanup logic goes here.
         return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
