@@ -4,7 +4,7 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
-import fetch from 'node-fetch'
+const fetch = require('node-fetch');
 
 const DirecTVPauseIntentHandler = {
     canHandle(handlerInput) {
