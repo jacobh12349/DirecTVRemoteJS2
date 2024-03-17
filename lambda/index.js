@@ -12,7 +12,7 @@ const DirecTVPauseIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PauseDirecTVIntent';
     },
     handle(handlerInput) {
-        fetch("http://192.168.0.34:8080/remote/processKey?key=pause", {method: 'POST'});
+        // fetch("http://192.168.0.34:8080/remote/processKey?key=pause", {method: 'POST'});
 
         return handlerInput.responseBuilder
             .speak("Ok")
