@@ -152,6 +152,22 @@ const ErrorHandler = {
     }
 };
 
+const LogRequestInterceptor = {
+    process(handlerInput) {
+      // Log Request
+      console.log("==== REQUEST ======");
+      console.log(JSON.stringify(handlerInput.requestEnvelope, null, 2));
+    }
+  }
+
+const LogResponseInterceptor = {
+    process(handlerInput, response) {
+      // Log Response
+      console.log("==== RESPONSE ======");
+      console.log(JSON.stringify(response, null, 2));
+    }
+  }
+
 /**
  * This handler acts as the entry point for your skill, routing all request and response
  * payloads to the handlers above. Make sure any new handlers or interceptors you've
@@ -169,5 +185,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         IntentReflectorHandler)
     .addErrorHandlers(
         ErrorHandler)
-    .withCustomUserAgent('sample/hello-world/v1.2')
+    .addRequestInterceptors(LogRequestInterceptor)
+    .addResponseInterceptors(LogResponseInterceptor)
+    // .withCustomUserAgent('sample/hello-world/v1.2')
     .lambda();
