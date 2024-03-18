@@ -7,18 +7,51 @@ const Alexa = require('ask-sdk-core');
 const http = require('http');
 // const fetch = require('node-fetch');
 
+const getHttp = function(url) {
+    return new Promise((resolve, reject) => {
+        const request = http.get(url, {method: 'POST'}, response => {
+            response.setEncoding('utf8');
+           
+            let returnData = '';
+            if (response.statusCode < 200 || response.statusCode >= 300) {
+                return reject(new Error(`${response.statusCode}: ${response.req.getHeader('host')} ${response.req.path}`));
+            }
+           
+            response.on('data', chunk => {
+                returnData += chunk;
+            });
+           
+            response.on('end', () => {
+                resolve(returnData);
+            });
+           
+            response.on('error', error => {
+                reject(error);
+            });
+        });
+        request.end();
+    });
+}
+
 const DirecTVPauseIntentHandler = {
     canHandle(handlerInput) {
         return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest' || Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest')
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PauseDirecTVIntent';
     },
-    handle(handlerInput) {
-        http.get("http://192.168.0.34:8080/remote/processKey?key=power", {method: "POST"});
+    async handle(handlerInput) {
+        try {
+            await getHttp("http://192.168.0.34:8080/remote/processKey?key=power");
+            handlerInput.responseBuilder
+                .speak('Ok');
+        }
+        catch (error) {
+            handlerInput.responseBuilder
+                .speak("There was an error");
+                console.log(error);
+        }
         // fetch("http://192.168.0.34:8080/remote/processKey?key=pause", {method: 'POST'});
 
         return handlerInput.responseBuilder
-            .speak('Ok')
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }
 };
