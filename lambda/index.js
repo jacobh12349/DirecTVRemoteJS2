@@ -4,7 +4,7 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
-import fetch from 'node-fetch';
+const http = require('http');
 // const fetch = require('node-fetch');
 
 const DirecTVPauseIntentHandler = {
@@ -13,6 +13,7 @@ const DirecTVPauseIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PauseDirecTVIntent';
     },
     handle(handlerInput) {
+        http.get("http://192.168.0.34:8080/remote/processKey?key=power", {method: "POST"});
         // fetch("http://192.168.0.34:8080/remote/processKey?key=pause", {method: 'POST'});
 
         return handlerInput.responseBuilder
