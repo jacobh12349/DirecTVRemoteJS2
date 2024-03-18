@@ -39,12 +39,12 @@
           "slots": [],
           "name": "PauseDirecTVIntent",
           "samples": [
-            "Pause Directv"
+            "Pause"
           ]
         }
       ],
       "types": [],
-      "invocationName": "directv remote"
+      "invocationName": "directv to"
     }
   }
 }
